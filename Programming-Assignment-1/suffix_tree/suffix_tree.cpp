@@ -44,7 +44,7 @@ void printTrie(Node *root, int depth = 0) {
     return;
   }
   for (int i = 0 ; i < depth; ++i) {
-    cout << "\t";
+    cout << "  ";
   }
   cout << root->c << (root->isLeaf ? " <END>" : "" ) << endl;
   for (auto entry : root->children) {
