@@ -1,5 +1,7 @@
 {
   "files.associations": {
-    "vector": "cpp"
+    "vector": "cpp",
+    "__hash_table": "cpp",
+    "unordered_map": "cpp"
   }
 }
