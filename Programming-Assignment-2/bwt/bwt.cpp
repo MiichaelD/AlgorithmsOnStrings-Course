@@ -44,6 +44,7 @@ string BWT(const string& text) {
     ss.clear();
     --startIndex;
   }
+  sort(matrix.begin(), matrix.end());
   printMatrix(matrix);
   return getLastColumn(matrix);
 }
@@ -51,6 +52,7 @@ string BWT(const string& text) {
 int main() {
   string text;
   cin >> text;
-  cout << BWT(text) << endl;
+  string bwt = BWT(text);
+  cout << "BWT: " << bwt << endl;
   return 0;
 }
