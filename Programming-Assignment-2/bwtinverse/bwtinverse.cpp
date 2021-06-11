@@ -70,10 +70,56 @@ string InverseBWT(const string& bwt) {
   return getOriginalStringFromMatrix(matrix);
 }
 
+void printMapping(vector<pair<int,int>>& mapping) {
+  for (int i = 0; i < mapping.size(); ++i) {
+    cout << i << ".-  " << mapping.at(i).first << " - " << mapping.at(i).second << endl;
+  }
+  cout << endl;
+}
+
+string InverseBWTImproved(const string& bwt) {
+  size_t textLen = bwt.size();
+  string sortedBwt = bwt;
+  sort(sortedBwt.begin(), sortedBwt.end());
+  vector<pair<int,int>> mapping(textLen);
+
+  int repeats;
+  for (int i = 0 ; i < textLen; ++i) {
+    char c = sortedBwt.at(i);
+    if (i > 0 && sortedBwt.at(i - 1) == c) {
+      ++repeats;
+    } else {
+      repeats = 0;
+    }
+    int tmpRepeats = repeats;
+    for (int j = 0; j < textLen; ++j) {
+      if (c == bwt.at(j)) {
+        if (tmpRepeats) {
+          --tmpRepeats;
+        } else {
+          mapping.at(i).first = j;
+          mapping.at(j).second = i;
+          break;
+        }
+      }
+    }
+  }
+  // printMapping(mapping);
+  stringstream output;
+  int index = 0;
+  for (int i = 0; i < textLen; ++i) {
+    const auto& entry = mapping.at(index);
+    output << sortedBwt.at(entry.first);
+    index = entry.first;
+  }
+  return output.str();;
+}
+
 int main() {
   string bwt;
   cin >> bwt;
-  string inverseBwt = InverseBWT(bwt);
+  // string inverseBwt = InverseBWT(bwt);
+  string inverseBwt = InverseBWTImproved(bwt);
   cout << "Inverse BWT(" << bwt << ") = " << inverseBwt << endl;
   return 0;
 }
